@@ -1,0 +1,48 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "File Operations";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+<h2>Read File</h2>
+
+<input type="file" id="fileInput" style="display: none;" />
+<button id="selectButton" class="btn btn-secondary">Select File</button>
+<br/><br/>
+<button id="readButton" class="btn btn-outline-primary" style="display: none;">Read</button>
+
+@section Scripts {
+    <script>
+        document.getElementById("selectButton").addEventListener("click", function () {
+            document.getElementById("fileInput").click();
+        });
+
+        document.getElementById("fileInput").addEventListener("change", function () {
+            var fileInput = document.getElementById("fileInput").files[0];
+            if (fileInput) {
+                document.getElementById("readButton").style.display = "block";
+            }
+        });
+
+        document.getElementById("readButton").addEventListener("click", function () {
+            var fileInput = document.getElementById("fileInput").files[0];
+            if (fileInput) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var fileContent = e.target.result;
+                    alert(fileContent);
+                };
+
+                reader.readAsText(fileInput);
+            }
+        });
+    </script>
+}
